@@ -33,5 +33,5 @@ app.post('/gerar-instalador', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Backend NEW TECH online na porta ${PORT}`);
+    console.log(`Servidor NEW TECH rodando na porta ${PORT}`);
 });
