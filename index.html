@@ -6,15 +6,15 @@
     <title>NEW TECH - Instalador Automático</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .card-active { border-color: #2563eb !important; background-color: #eff6ff; scale: 1.02; }
+        .card-active { border-color: #2563eb !important; background-color: #f8fafc; scale: 1.02; }
     </style>
 </head>
-<body class="bg-gray-50 font-sans pb-32">
+<body class="bg-slate-50 font-sans pb-32">
 
     <header class="bg-slate-900 text-white py-12 shadow-xl border-b-4 border-blue-600">
-        <div class="container mx-auto text-center">
+        <div class="container mx-auto text-center px-4">
             <h1 class="text-5xl font-extrabold tracking-tight italic">NEW TECH</h1>
-            <p class="mt-3 text-slate-400 text-lg">Soluções em Tecnologia | Engenheiro André Lucas</p>
+            <p class="mt-3 text-slate-400 text-lg uppercase tracking-widest">Soluções em Tecnologia | Engenheiro André Lucas</p>
         </div>
     </header>
 
@@ -30,7 +30,7 @@
     </main>
 
     <script>
-        // Lista Técnica consolidada com os IDs do Winget e Ícones
+        // Mapeamento corrigido dos Slugs para o Simple Icons
         const apps = [
             { name: 'Google Chrome', id: 'Google.Chrome', cat: 'Navegador', logo: 'https://cdn.simpleicons.org/googlechrome/4285F4' },
             { name: 'Mozilla Firefox', id: 'Mozilla.Firefox.ESR', cat: 'Navegador', logo: 'https://cdn.simpleicons.org/firefoxbrowser/FF7139' },
@@ -38,9 +38,9 @@
             { name: 'WinRAR', id: 'RARLab.WinRAR', cat: 'Utilitário', logo: 'https://cdn.simpleicons.org/winrar/333333' },
             { name: 'VLC Media Player', id: 'VideoLAN.VLC', cat: 'Media', logo: 'https://cdn.simpleicons.org/vlc/FF8800' },
             { name: 'Adobe Reader', id: 'Adobe.Acrobat.Reader.64-bit', cat: 'Documentos', logo: 'https://cdn.simpleicons.org/adobeacrobatreader/EC1C24' },
-            { name: 'K-Lite Codec', id: 'CodecGuide.K-LiteCodecPack.Full', cat: 'Media', logo: 'https://cdn.simpleicons.org/vlc/000000' },
+            { name: 'K-Lite Codec', id: 'CodecGuide.K-LiteCodecPack.Full', cat: 'Media', logo: 'https://cdn.simpleicons.org/klitecodecpack/333333' },
             { name: 'Visual Studio Code', id: 'Microsoft.VisualStudioCode', cat: 'Dev', logo: 'https://cdn.simpleicons.org/visualstudiocode/007ACC' },
-            { name: 'Revo Uninstaller', id: 'RevoUninstaller.RevoUninstaller', cat: 'Utilitário', logo: 'https://cdn.simpleicons.org/revo/006699' },
+            { name: 'Revo Uninstaller', id: 'RevoUninstaller.RevoUninstaller', cat: 'Utilitário', logo: 'https://cdn.simpleicons.org/revouninstaller/006699' },
             { name: 'Runtime .NET 8', id: 'Microsoft.DotNet.DesktopRuntime.8', cat: 'Sistema', logo: 'https://cdn.simpleicons.org/dotnet/512BD4' },
             { name: 'VC++ Redist 2015+', id: 'Microsoft.VCRedist.2015+.x64', cat: 'Sistema', logo: 'https://cdn.simpleicons.org/microsoft/00A4EF' }
         ];
@@ -52,9 +52,9 @@
             card.className = "bg-white p-5 rounded-2xl shadow-sm border-2 border-gray-100 cursor-pointer hover:shadow-lg transition-all flex items-center space-x-4";
             card.innerHTML = `
                 <input type="checkbox" value="${app.id}" class="w-6 h-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                <img src="${app.logo}" class="w-10 h-10 object-contain" alt="${app.name}">
+                <img src="${app.logo}" class="w-10 h-10 object-contain" alt="${app.name}" onerror="this.src='https://cdn.simpleicons.org/windowsterminal/333333'">
                 <div class="flex-1">
-                    <h3 class="font-bold text-slate-800">${app.name}</h3>
+                    <h3 class="font-bold text-slate-800 leading-tight">${app.name}</h3>
                     <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 text-slate-500 rounded uppercase tracking-wider">${app.cat}</span>
                 </div>
             `;
@@ -68,12 +68,11 @@
 
         document.getElementById('btn-download').onclick = async () => {
             const selected = Array.from(document.querySelectorAll('input:checked')).map(cb => cb.value);
-            if(selected.length === 0) return alert("Selecione pelo menos um aplicativo.");
+            if(selected.length === 0) return alert("Por favor, selecione pelo menos um aplicativo.");
 
-            // Botão em estado de carregamento
             const btn = document.getElementById('btn-download');
             const originalText = btn.innerText;
-            btn.innerText = "Processando...";
+            btn.innerText = "Preparando Script...";
             btn.disabled = true;
 
             try {
@@ -87,12 +86,12 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = "NEW_TECH_Installer.bat";
+                a.download = "Instalador_NEW_TECH.bat";
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
             } catch (err) {
-                alert("Erro ao conectar com o servidor da NEW TECH.");
+                alert("Servidor em standby. Tente novamente em 30 segundos.");
             } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
